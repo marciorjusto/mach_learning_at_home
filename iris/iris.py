@@ -6,7 +6,7 @@ https://dev.to/educationecosystem/a-simple-machine-learning-project-in-python-5d
 """
 from sklearn import datasets
 
-# Este é um comentário
+# Abordagem 1 - Usar dataset da biblioteca
 iris = datasets.load_iris()
 digits = datasets.load_digits()
 
@@ -17,8 +17,8 @@ print(digits.data)
 print(iris.data)
 print(iris.target)
 print(iris.target_names)
-
 #--------
+
 import seaborn as sns
 
 iris_data = iris.data
