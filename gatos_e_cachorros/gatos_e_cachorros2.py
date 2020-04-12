@@ -61,7 +61,7 @@ Matplotlib and use Seaborn to get started (see Seaborn below).
 from matplotlib          import pyplot
 
 # load dataset
-file = 'gatos_e_cachorros.csv'
+file = 'gatos_e_cachorros_nome.csv'
 caracteristicas = ['EH_FOFINHO', 'TEM_ORELHA_PEQ', 'FAZ_MIAU', 'BICHO_EH']
 
 # Funciona como um dictionary no Python (ou Hash em Ruby)
@@ -103,16 +103,10 @@ print(caracts_test.head(5))
 print("Quais são os bichos com as características acima?")
 print(classifs_test.head(5))
 
+
+# Com o algoritmo treinado, vamos fazer Previsões
 # Criação do modelo
-modelo = MultinomialNB()
-modelo.fit(caracts_train, classifs_train)
 
-rotulos_previstos = modelo.predict(caracts_test)
-
-print(rotulos_previstos)
-print(classifs_test)
-
-print("Acurácia de " + str(accuracy_score(rotulos_previstos, classifs_test) * 100) + "%")
 
 """
 A variável data representa um objeto Python que funciona como um dicionário. 
@@ -211,4 +205,4 @@ print(rotulos_previstos)
 print("Rótulos esperados: ")
 print(rotulos_esperados)
 """
-
+#print("Acurácia de " + str(accuracy_score(rotulos_previstos, rotulos_esperados) * 100) + "%")

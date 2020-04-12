@@ -60,59 +60,62 @@ Matplotlib and use Seaborn to get started (see Seaborn below).
 """
 from matplotlib          import pyplot
 
-# load dataset
+"""
+1. Importar dados de uma planilha CSV
+"""
 file = 'gatos_e_cachorros.csv'
-caracteristicas = ['EH_FOFINHO', 'TEM_ORELHA_PEQ', 'FAZ_MIAU', 'BICHO_EH']
+rotulos = ['EH_FOFINHO', 'TEM_ORELHA_PEQ', 'FAZ_MIAU', 'BICHO_EH']
+dataset = read_csv(file, names=rotulos, sep=';', header=0)
 
-# Funciona como um dictionary no Python (ou Hash em Ruby)
-dataset = read_csv(file, names=caracteristicas, sep=';', header=0)
-
-print(  "------------------------------------"
-     + "\nAtributos/Características do animal:"
-     + "\n------------------------------------"
-     )
+"""
+2. Separar dados em dados de treinamento e dados de teste
+"""
 # Separa a coluna da classificação das colunas de características
-print(dataset.drop('BICHO_EH', axis=1))  
-caracts = dataset.drop('BICHO_EH', axis=1)
+atributos = dataset.drop('BICHO_EH', axis=1)
+resultados = dataset.BICHO_EH
 
-print( "-------------------------------"
-     + "\nClassificação/Rótulo do animal:"
-     + "\n-------------------------------"
-     )
-print(dataset.BICHO_EH)
-classifs = dataset.BICHO_EH
+atributos_train    \
+, atributos_test   \
+, resultados_train \
+, resultados_test  = train_test_split( atributos       \
+                                     , resultados      \
+                                     , test_size=0.3   \
+                                     , random_state=42 \
+                                     )
 
-caracts_train    \
-, caracts_test   \
-, classifs_train \
-, classifs_test  = train_test_split( caracts         \
-                                   , classifs        \
-                                   , test_size=0.3   \
-                                   , random_state=42 \
-                                   )
+"""
+TREINANDO ALGORITMO
+Informa atributos de bichos conhecidos
+"""
+print(atributos_train.head(5))
+# Informa quais bichos devem resultar a partir das características conhecidas
+print(resultados_train.head(5))
 
-print("*** TREINANDO ALGORITMO ...")
-print("Informa características de bichos conhecidos")
-print(caracts_train.head(5))
-print("Informa quais bichos devem resultar a partir das características conhecidas")
-print(classifs_train.head(5))
+"""
+TESTANDO
+Informa atributos de bichos desconhecidos
+"""
+print(atributos_test.head(5))
+#Quais são os bichos com os atributos acima?
+print(resultados_test.head(5))
 
-print("*** TESTANDO ...")
-print("Informa características de bichos desconhecidos")
-print(caracts_test.head(5))
-print("Quais são os bichos com as características acima?")
-print(classifs_test.head(5))
+
+"""
+3. Fazer previsões
+"""
+# Fazer predições
+atributos_previsao = [0, 0, 0]
+dados_previsao = [atributos_previsao]
 
 # Criação do modelo
 modelo = MultinomialNB()
-modelo.fit(caracts_train, classifs_train)
+modelo.fit(atributos_train, resultados_train)
+#resultado_previsao = modelo.predict(dados_previsao)
 
-rotulos_previstos = modelo.predict(caracts_test)
+#print("Bicho previsto:")
+#print(resultado_previsao)
 
-print(rotulos_previstos)
-print(classifs_test)
-
-print("Acurácia de " + str(accuracy_score(rotulos_previstos, classifs_test) * 100) + "%")
+#print("Acurácia de " + str(accuracy_score(, resultado_previsao) * 100) + "%")
 
 """
 A variável data representa um objeto Python que funciona como um dicionário. 
@@ -211,4 +214,4 @@ print(rotulos_previstos)
 print("Rótulos esperados: ")
 print(rotulos_esperados)
 """
-
+#print("Acurácia de " + str(accuracy_score(rotulos_previstos, rotulos_esperados) * 100) + "%")
